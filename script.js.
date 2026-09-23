@@ -1,0 +1,101 @@
+const items = [
+  {
+    name: "Free sofa",
+    location: "Nearby",
+    category: "Furniture",
+    description: "Comfortable sofa looking for a new home."
+  },
+  {
+    name: "Children's books",
+    location: "Nearby",
+    category: "Kids",
+    description: "Box of children's books. Free to collect."
+  },
+  {
+    name: "Garden table",
+    location: "Nearby",
+    category: "Garden",
+    description: "Used garden table. Collection only."
+  }
+];
+
+function displayItems(list = items) {
+  const container = document.getElementById("items");
+
+  container.innerHTML = "";
+
+  list.forEach((item, index) => {
+    container.innerHTML += `
+      <div class="item">
+        <h3>${item.name}</h3>
+        <small>${item.location}</small>
+        <small>${item.category || "Other"}</small>
+
+        ${item.photo ? `<img src="${item.photo}" style="width:100%; max-height:300px; object-fit:cover; border-radius:12px; margin:10px 0;">` : ""}
+
+        <p>${item.description}</p>
+
+        <button onclick="claimItem(${index})">I'd like this</button>
+      </div>
+    `;
+  });
+}
+
+function searchItems() {
+  const search = document
+    .getElementById("search")
+    .value
+    .toLowerCase();
+
+  const filtered = items.filter(item =>
+    item.name.toLowerCase().includes(search) ||
+    item.description.toLowerCase().includes(search) ||
+    (item.category || "").toLowerCase().includes(search)
+  );
+
+  displayItems(filtered);
+}
+
+function claimItem(index) {
+  alert("Great! You have shown interest in this item.");
+}
+
+function showForm() {
+  document.getElementById("form").style.display = "block";
+}
+
+function hideForm() {
+  document.getElementById("form").style.display = "none";
+}
+
+function addItem() {
+  const name = document.getElementById("itemName").value;
+  const location = document.getElementById("location").value;
+  const category = document.getElementById("category").value;
+  const description = document.getElementById("description").value;
+  const photo = document.getElementById("itemPhoto").files[0];
+
+  if (!name || !location || !category || !description) {
+    alert("Please fill in all the boxes.");
+    return;
+  }
+
+  items.unshift({
+    name: name,
+    location: location,
+    category: category,
+    description: description,
+    photo: photo ? URL.createObjectURL(photo) : ""
+  });
+
+  displayItems();
+  hideForm();
+
+  document.getElementById("itemName").value = "";
+  document.getElementById("location").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("itemPhoto").value = "";
+}
+
+displayItems();
