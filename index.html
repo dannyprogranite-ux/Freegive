@@ -1,0 +1,61 @@
+<div class="app">
+  <header>
+    <h1>FreeGive</h1>
+    <p>Give it away. Someone nearby wants it.</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Give away things you no longer need.</h2>
+      <p>List unwanted items for free and help someone nearby find something useful.</p>
+      <button onclick="showForm()">Give something away</button>
+    </section>
+
+    <section>
+      <h2>Free things near you</h2>
+
+      <div class="search">
+        <input
+          id="search"
+          type="text"
+          placeholder="Search for an item..."
+          oninput="searchItems()"
+        >
+      </div>
+
+      <div id="items"></div>
+    </section>
+  </main>
+
+  <div id="form" class="modal">
+    <div class="modal-box">
+      <button class="close" onclick="hideForm()">×</button>
+
+      <h2>Give something away</h2>
+
+      <input id="itemName" placeholder="What are you giving away?">
+
+      <select id="category">
+        <option value="">Choose a category</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Kids">Kids</option>
+        <option value="Garden">Garden</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Home">Home</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input id="itemPhoto" type="file" accept="image/*">
+
+      <input id="location" placeholder="Your area">
+
+      <textarea
+        id="description"
+        placeholder="Tell people about the item"
+      ></textarea>
+
+      <button onclick="addItem()">List it for free</button>
+    </div>
+  </div>
+</div>
